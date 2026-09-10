@@ -258,7 +258,7 @@ The repository contains four workflow files:
     └── 04-deploy-production.yml
 ```
 
----
+----- --
 
 # 12. Run and Verify the Staging Application
 
