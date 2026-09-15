@@ -25,7 +25,7 @@ const MainLayout = ({ children }) => {
           p: 3,
           minWidth: 0,
           backgroundColor:
-            "background.default",
+            "background.green",
         }}
       >
         <Toolbar />
