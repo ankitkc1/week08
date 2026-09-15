@@ -1,0 +1,391 @@
+{
+  "version": 4,
+  "terraform_version": "1.15.8",
+  "serial": 13,
+  "lineage": "f83b10ec-6c1f-6d9f-2bc4-1adff0e8349c",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "azurerm_container_registry",
+      "name": "acr",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 2,
+          "attributes": {
+            "admin_enabled": true,
+            "admin_password": "71b5tdvvzv0xeAq8rCElVIGJxwIelk7Dooi6gGCa5jj0KqJZQdHzJQQJ99CIACL93NaEqg7NAAACAZCRjqJ6",
+            "admin_username": "ankit225665761acr8",
+            "anonymous_pull_enabled": false,
+            "azuread_authentication_as_arm_policy_enabled": true,
+            "data_endpoint_enabled": false,
+            "data_endpoint_host_names": [],
+            "encryption": [],
+            "export_policy_enabled": true,
+            "georeplications": [],
+            "id": "/subscriptions/773b1085-45bc-4a25-b2d2-da8836c356cf/resourceGroups/koalatech-week08-rg/providers/Microsoft.ContainerRegistry/registries/ankit225665761acr8",
+            "identity": [],
+            "location": "australiaeast",
+            "login_server": "ankit225665761acr8.azurecr.io",
+            "name": "ankit225665761acr8",
+            "network_rule_bypass_for_tasks_enabled": false,
+            "network_rule_bypass_option": "AzureServices",
+            "network_rule_set": [],
+            "public_network_access_enabled": true,
+            "quarantine_policy_enabled": false,
+            "resource_group_name": "koalatech-week08-rg",
+            "retention_policy_in_days": 0,
+            "role_assignment_mode": "LegacyRegistryPermissions",
+            "sku": "Basic",
+            "tags": {
+              "Environment": "development",
+              "ManagedBy": "Terraform",
+              "Practical": "Week08",
+              "Project": "KoalaTech Course Platform"
+            },
+            "timeouts": null,
+            "trust_policy_enabled": false,
+            "zone_redundancy_enabled": false
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "admin_password"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIyIn0=",
+          "dependencies": [
+            "azurerm_resource_group.rg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_kubernetes_cluster",
+      "name": "aks",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 2,
+          "attributes": {
+            "aci_connector_linux": [],
+            "ai_toolchain_operator_enabled": false,
+            "api_server_access_profile": [],
+            "auto_scaler_profile": [],
+            "automatic_upgrade_channel": "",
+            "azure_active_directory_role_based_access_control": [],
+            "azure_policy_enabled": false,
+            "bootstrap_profile": [
+              {
+                "artifact_source": "Direct",
+                "container_registry_id": ""
+              }
+            ],
+            "confidential_computing": [],
+            "cost_analysis_enabled": false,
+            "current_kubernetes_version": "1.36.1",
+            "custom_ca_trust_certificates_base64": [],
+            "default_node_pool": [
+              {
+                "auto_scaling_enabled": false,
+                "capacity_reservation_group_id": "",
+                "fips_enabled": false,
+                "gpu_driver": "",
+                "gpu_instance": "",
+                "host_encryption_enabled": false,
+                "host_group_id": "",
+                "kubelet_config": [],
+                "kubelet_disk_type": "OS",
+                "linux_os_config": [],
+                "max_count": 0,
+                "max_pods": 250,
+                "min_count": 0,
+                "name": "default",
+                "node_count": 3,
+                "node_labels": {},
+                "node_network_profile": [],
+                "node_public_ip_enabled": false,
+                "node_public_ip_prefix_id": "",
+                "only_critical_addons_enabled": false,
+                "orchestrator_version": "1.36.1",
+                "os_disk_size_gb": 128,
+                "os_disk_type": "Managed",
+                "os_sku": "Ubuntu",
+                "pod_subnet_id": "",
+                "proximity_placement_group_id": "",
+                "scale_down_mode": "Delete",
+                "snapshot_id": "",
+                "tags": {},
+                "temporary_name_for_rotation": "",
+                "type": "VirtualMachineScaleSets",
+                "ultra_ssd_enabled": false,
+                "upgrade_settings": [
+                  {
+                    "drain_timeout_in_minutes": 0,
+                    "max_surge": "10%",
+                    "node_soak_duration_in_minutes": 0,
+                    "undrainable_node_behavior": ""
+                  }
+                ],
+                "vm_size": "Standard_D2s_v3",
+                "vnet_subnet_id": "",
+                "workload_runtime": "",
+                "zones": []
+              }
+            ],
+            "disk_encryption_set_id": "",
+            "dns_prefix": "koalatech",
+            "dns_prefix_private_cluster": "",
+            "edge_zone": "",
+            "fqdn": "koalatech-7fy38n84.hcp.australiaeast.azmk8s.io",
+            "http_application_routing_enabled": false,
+            "http_application_routing_zone_name": "",
+            "http_proxy_config": [],
+            "id": "/subscriptions/773b1085-45bc-4a25-b2d2-da8836c356cf/resourceGroups/koalatech-week08-rg/providers/Microsoft.ContainerService/managedClusters/ankit225665761-aks8",
+            "identity": [
+              {
+                "identity_ids": [],
+                "principal_id": "5bb4949c-b2ac-4339-9ba2-4d7e45ef4201",
+                "tenant_id": "2625129d-99a2-4df5-988e-5c5d07e7d0fb",
+                "type": "SystemAssigned"
+              }
+            ],
+            "image_cleaner_enabled": null,
+            "image_cleaner_interval_hours": null,
+            "ingress_application_gateway": [],
+            "key_management_service": [],
+            "key_vault_secrets_provider": [],
+            "kube_admin_config": [],
+            "kube_admin_config_raw": "",
+            "kube_config": [
+              {
+                "client_certificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZIVENDQXdXZ0F3SUJBZ0lRV0RMck1US1V2b25OdFdsS25FOC9RREFOQmdrcWhraUc5dzBCQVFzRkFEQU4KTVFzd0NRWURWUVFERXdKallUQWVGdzB5TmpBNU1UQXdNVEkyTlROYUZ3MHlPREE1TVRBd01UTTJOVE5hTURBeApGekFWQmdOVkJBb1REbk41YzNSbGJUcHRZWE4wWlhKek1SVXdFd1lEVlFRREV3eHRZWE4wWlhKamJHbGxiblF3CmdnSWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUNEd0F3Z2dJS0FvSUNBUUMzSDM3dUpwallXS201M0Q2RUpmUVAKdVRIbUdEQXVHK2ZVdlR1RDFsVXFXTkxWWFd1dnVkYkNhR1A3K0UxY2piYTN3cG5qTzlkSE1RM3JMSWhNcG5GWgphdUZVRkswdU42R0s0MERPd25xdkdPVnJjOTNCc2QreW5SR2RiSTBtaUVBcEdPUGdXUVNPSTV4M0hxbWhVdSs5CjhkaXNIdHgwbGp0U2p2NlZyYUJHS0pVODZOQ3VuR1A2NnIxSlZWcitxMy9xczNucVlaOGo5ZWtMYWpjbElpNU8KKytUS3hGdjhGSUJoQ1ZwQU92MHNhNVE2S1VndEt6RmF3NUYvc3FlTXBpUEwrdXM3MUE1SVpuYyt3ZFRWbVJtMQpobFZEK2lXQ2diekpReUdBZUtZZjJJYkJnVU1rWWs2bUxFd3RvZ2czTjJYdGlSTjN5eDd5aXd5dGpOTGVaOVB5CnoraDZKRkcxa05ReW4zaWlKakw0K3ZkeGljTGpaY1FzMFluZndwT3JPMUZwRU0xSmZYNkFUaUExY05wb2M3MTgKSHVPYUVaeUNyTkptSks2RTQ5ViszMUM1S3J1MkZaeGUvR3NSSVI1RVhrNUVwaDRkU1JsaXF3OHdYQXFTSlZUNQowY0w5WlUraWxJY0xBZisvWHFSZ0xPRkY2QTd3aXgxSTRjQXVzQmNNZFZTdm5rWXZyMnhzRkJWUUZJSU53RVVBCkxYN0hmZU5jdXJxZmppblJlSjVWMDFlWitXZGxqQ0hBZmMzdERlZkFGSVRyUDdOcmh6M1BwRUtZdEpBR2lYb2kKRXZwZi9wMjF3ZzVKV3NJMkJqVmgyUWVkTnYrOXF0ZFlsekxROUNNT1pqVFlaYXZYMWg2eUdsWDZ6VXcvY1kvKwpyMnB3REJta3Jkci9tZmVFeGJ0REZRSURBUUFCbzFZd1ZEQU9CZ05WSFE4QkFmOEVCQU1DQmFBd0V3WURWUjBsCkJBd3dDZ1lJS3dZQkJRVUhBd0l3REFZRFZSMFRBUUgvQkFJd0FEQWZCZ05WSFNNRUdEQVdnQlI3U050N21PRjUKejgzRTFmWDcwUlNubWJySG1qQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FnRUFFWk5kME1uekVseUpvbVZZRVFBRQozejhDRVBDdDRTV2FBVkNKcjVuMmpSejlZTFpCMHRQZzFLSXZiZmJVUnh0Vk9paHlVL2QxTE85VVYycFBGRnNNClA1UkEzZExBWXhKMEVYbXMrR1pWbXVSM2xqYmZsNkwyNFBwQmRsVHpkQjBYMGthd2R3SHVYVVRvUEdwU3laTDQKdjFuRkNoazJlSVVIUWtmdThzcEdXb1BvdzFTM0ZCbmM3T1Y2K1lvSThIYmZrUUo2eE9EcmpRaWxtanZ6bG1XWQpZclBOdVltYU9wV0VLcVM1bTQzUk12SUsxM3M0TEVIRytGS2xxekNMc0FSUk4xUGQ5a0hWYlkyRGkwK054dWpZClZFSzRlMitzUll6QWd2NEp5UkRJN2Jza3dKWnlWOVNtR01KMEVyV2NBQzMzOHlGdHRBeTFUakxtd0p2a2hNUCsKZ0VRU0xEbk85b2ZZMmJ5RXdPZkE1ckswQWFYSXhwZlJZQmRGRmdYN0hHbUtoa1pvd2pUcnNTL2V1aXIzQ0JSWQp3R2x4T0NqSTgzTDlORzVhYnZ6R1dkZytwbTdhMlVsMGhmaFh0OXFIbmJzcEFkVEhWemtIdVJjRUVRV1VxTjhECmE5OHBPdzBXb2g1bEEyVHNEckxSZGJCQzY2cHREVTQ5S0ZaV0ZvZDhCYzJ6Z3JId2NPcENBaU5sRTJ0dUJyNUcKS0twa01RWGxBZHI3RE56WWh0QjdKeFkvNTNlTVBlVmRTRTVRQTkxcGJpaE92OWZJUWpHVXJJeFMzMFdzNERoZApxYWVsZ29ycnRxM24rMFF1SmpndytIelFiSTkvTXoyZFVWQzhrS3AvNkVwOTlOb1JvWnZTUXVOYmhHbkJxYXY2Cm1MZ2JlTHAyN3ZMOVlkOWtUd1lZUHhnPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==",
+                "client_key": "LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlKS1FJQkFBS0NBZ0VBdHg5KzdpYVkyRmlwdWR3K2hDWDBEN2t4NWhnd0xodm4xTDA3ZzlaVktsalMxVjFyCnI3bld3bWhqKy9oTlhJMjJ0OEtaNHp2WFJ6RU42eXlJVEtaeFdXcmhWQlN0TGplaGl1TkF6c0o2cnhqbGEzUGQKd2JIZnNwMFJuV3lOSm9oQUtSamo0RmtFamlPY2R4NnBvVkx2dmZIWXJCN2NkSlk3VW83K2xhMmdSaWlWUE9qUQpycHhqK3VxOVNWVmEvcXQvNnJONTZtR2ZJL1hwQzJvM0pTSXVUdnZreXNSYi9CU0FZUWxhUURyOUxHdVVPaWxJCkxTc3hXc09SZjdLbmpLWWp5L3JyTzlRT1NHWjNQc0hVMVprWnRZWlZRL29sZ29HOHlVTWhnSGltSDlpR3dZRkQKSkdKT3BpeE1MYUlJTnpkbDdZa1RkOHNlOG9zTXJZelMzbWZUOHMvb2VpUlJ0WkRVTXA5NG9pWXkrUHIzY1luQwo0MlhFTE5HSjM4S1RxenRSYVJETlNYMStnRTRnTlhEYWFITzlmQjdqbWhHY2dxelNaaVN1aE9QVmZ0OVF1U3E3CnRoV2NYdnhyRVNFZVJGNU9SS1llSFVrWllxc1BNRndLa2lWVStkSEMvV1ZQb3BTSEN3SC92MTZrWUN6aFJlZ08KOElzZFNPSEFMckFYREhWVXI1NUdMNjlzYkJRVlVCU0NEY0JGQUMxK3gzM2pYTHE2bjQ0cDBYaWVWZE5YbWZsbgpaWXdod0gzTjdRM253QlNFNnoremE0Yzl6NlJDbUxTUUJvbDZJaEw2WC82ZHRjSU9TVnJDTmdZMVlka0huVGIvCnZhclhXSmN5MFBRakRtWTAyR1dyMTlZZXNocFYrczFNUDNHUC9xOXFjQXdacEszYS81bjNoTVc3UXhVQ0F3RUEKQVFLQ0FnQUFyMTFmSXgweGt0VUV3aURLS1ZjOHN6QlY5eEQ4OTh5MEFKcm1ZNnRrYWxHeTlCcG53bWVUeVIrTgpYUUpzTzhvM0ZZMUdjeTFIRnNzbXBCQWNXOUhGa2tlZjBrT084MVZGbEF5dWlpbk81MWpWTXM1SmRDYmpCT1lpClpCaWRta2pnb2RqK1JiOWxkTzcyUmc5bjl2cnUwWmxQcjdycm1WeEZJa1FEMmtWNUFSVTZkMC9iZXJvVHdYbmkKVWV3b1JXazZkT2F1ZTVBT29KZEtEckhldnc4bEU5ekhqajMyRHJTNzBKMC9Mc29tWmZmSVRDQko4TnlVblBpUgpOVEl5TkdRT2hYNjN4cTZQMW8vREFIRmJlNTJOODhHSW9wMzRRR0RWWEIyUE93eTZ4cHdOenJxM2tiUjRJN2YzClZxNTJjd3Y0a0hPbldYeS9hYURuNFlFd2J2UjRpWHZTWEcwUFNLUDFxSVVKUmhLSHE5My9YcjRzcEJoTVA5TTMKMDBxMkZmNFRSYXRGblN6RHNldE9lR0dRUkRWMzRnU2JVTUxrRnNROXZoQlpCejViN0dnVjltUldKWUpqNUtSOQpqMmMxbGM5QU5pem9UV3ljWlgxMlVLN1VIVTNidFR4dS8vZUppcmJCZUtTN0QvVWNTbWtTUjZMaUJ3QXU0NzNiCnB6dndzT1cvUnRvbTBnRTRGZFJYbWJZeFhjZ2FhSWZ5dm80dGpNUUR6bmdMdzFUdTVuSUc1YytGWlEzUDhRcGsKK1dxaFZaMHpmOUN4dzRiL05ZMTduRGJzNm8xT0JZalg0cHIrQy9kSkRXY2l1WVpTSTBmSkR4Sk5TQU9aYjlsQQpsa254T0NXYzVaQ3lrTm9ycmdmL2tJeklNZXZSM1hxbFAzOWVHSHZuZ2JKaXlkUHl3UUtDQVFFQTdUOGVvSWo2Ck1PZjhKTUVPR1lBVnlKVFBUbEtzeU1BRktUQ3k4T2ovdDkwenRaVy8vaTRETW9NakV6YjRZdUY3Q2lkdlZsd1kKVEM5ZVp2VzVYdW94bkJUTEFwb0JIam9ack1TNnFadFlMTS9SOHNPWDFpR3A4T25lZXFCWkc1eGRTcEs4NE40MQpQbktIWCtZY09lMmp3ZC95NmpoOHpScnRWejZCTENGZkl3bm14M3lIeUswQ0xzaXpJMER5VGZwUzRJOEs2aTlhCmx2QUJyTmlYVS9tNUgrN0NqZjhNWmlsdHVTNXIwT0tKN1huWCtKV0FuRjg2OHVhWm05RCswUjBqOWs4N1NZOG8KbVZwdUVoYU44S25hWjczWHlmdjdtaUhjVHYxQjVsc01kNTNFZTVKcDBVVXE2TlVsS0Z0K09CdmluUEp0NFV0QwpBNTJRRjRCeGRRRUp1UUtDQVFFQXhaa2tUQUEyeStJZVBJd29EUitsQWdtRVZLVkpyWU5OQXUxOWhDblYrZjlkCkZZS1hOZExTcmhRSldWRDdkZEpZYy9aMXptRzJXK1U0SGM1b1hCNmZ5QUdDRERyZGs4bHkxbzhMRUYrMHVFS2gKV3dVT0s4YXFWUTc5YSsxSzBPdjhWVnVJaVF4Z0dvWDUrN0ZOV1JNSE9SdmMrRG9QU2ROUkxXVDJJVmtDODlxMApwYysycjl0MWNQKzNSRDBmcG1XOUJDQy9XVUMwTmltbDh0YWxUY3VBT0tiY3BUb2lCMEJoSi9mZEc1UVhPdTNHCkN3SlQvTjhGVmJ2ek5qSFFOUndYWldramhqSFFUc1d5L3B2cU9ac00zRFdGakQxUkVhaHR6TFh0bjRlclZVT28KdVE5S1UzRVpnUHNMejZxZVRqWnkzdExQck5zN0k3TXJBZHpuSCt5Q1BRS0NBUUVBMWpkRENVTUZYVGxxb3lrcAorUDU5TE5LbzZKaWY2TmZ4RVFNbTMzNFN2OHJja040NU1HSU5nd09EblNycVZpWXdPYmZud1B1QStQRmdkT2owCnl1MzlnMmdHOGo5cU9RZk8vUC9aWjZHYm1VTEEyRW1oaExoNndNdjZsWkRKUkxRSVRIaDRVVFp5cndNc2x2dW8KaXVtM0RpeVBJc3VFYkpJZXNjTC9VWUNFYlpmWUtGR2FMU21DS2dvUUxnbkxmM3RDYi83WXBTSEMwenk4MW52dgpEK1VSTWZNYytxZkxZMGVQQ2tFUEd0b2lIaW9CUnpSK256TWhnQWVWdFdxZFd1WEwvZkFHb1dIQkQ4N21TakRSClV2ZWEvRWNmWEFMSmFKK2dWRFk2MWF0cWMyc2g2VTRIZSt6UFZOSjRMWnVIT1ZSOFpxaERiTVRPUTROMmdySDQKUCtTRENRS0NBUUVBbXRnNGJtcFlob3Nxd0szZ2tQQTBZWlZOb3Z0bjhsWUxXbmo3UEQrQWxBaytTNlhya3QwawpCaEJqaHgrRC9yK1lXejlPOEN6NE42azN3WHZIb2pESmEzVnJFT1JzVU95elZsb0FCSlBMVGYzQTdrL1czQTB4CjI3Z0VkYmdkUWYwNzN6UDhtZEVkMm9zVTY5ejBUUkl4UGRxTTNlUzVxRk8xc0lvR3F2bFM2LzkrUXRXMFJya0cKbmtkMXVUN2c5NGVRaUpTVS9uOUsrWXJIcGJYNUVpNmZ5MFZQY1JkT0pUcVpLRFgvaWlZUjBqY1VVL28rRU5KQQpId0JMUmpQaEFrMkNOQkVoS244TXl6MzMxN2djNDRtU21WcER6ak1hdldpc3FwZ0NuMW8wdEh0eDA1dWMxaWl5CklMWWFlbUVzN3dPU0h2VTZreTIxZVhObEIyK3htdjIrelFLQ0FRQU44eHBqb2xPU1d6QTdVbVMzamRzR2wvMHcKRnYyNGYza3I5b2pjVkN1RXRsdGFtbDBzUVkxYzFyL1Z1MWh2dkxMUGFIU1NpTm5TbDVKZU1OR29YakNpd2prUQpmbWt0bGdOOGk0NEdEZUpDYkh1T1VoMzNMYzcrMlNMM1BzVzA0Zmc2YitNQ3B1M0FuUXFBUnpscWlkd1dwdWI3CmFHNnJTd0NWV3BtbGxpM3JQWEgwcFljUUpUZnl2WDVZNnRsVzFBNDdFWnBHVjY3YjlRRkswMkF1UStUNTNNOW4KVnk2L2U5aE0yckk3dFRNUU9UZTdYK3luZGgyY0NMOUczVnUvcHRlOWRpMDNNT1NnNXljSDRUamkvKy85TEZlcwpHR25MRUwyb3l5ZFZRVnhDNzZpTzhQWGlGNVMvMnQxQm9aaXc4YUh4UW16UHNTWmovUzlDSEF6WlMwL0QKLS0tLS1FTkQgUlNBIFBSSVZBVEUgS0VZLS0tLS0K",
+                "cluster_ca_certificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUU2VENDQXRHZ0F3SUJBZ0lSQU5ZNUhlSlJGZ3AvbjB6RnZGbU53dlV3RFFZSktvWklodmNOQVFFTEJRQXcKRFRFTE1Ba0dBMVVFQXhNQ1kyRXdJQmNOTWpZd09URXdNREV5TmpVeldoZ1BNakExTmpBNU1UQXdNVE0yTlROYQpNQTB4Q3pBSkJnTlZCQU1UQW1OaE1JSUNJakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBZzhBTUlJQ0NnS0NBZ0VBCnVmRWpOOFZENlB0bUtoQmRFU0YwUFlvcTc3emtpbVBRdTlBYThxRHBNSWFEejBJYnRRYnpkaW9yNjlVa0tmQjQKZ3BRWkRDY3JNNkp4M2tuNjhWUGNibW5OMCtnYkwwa3dqV2VnQlBtYjhzQndSOVd1Umh3TlVGcXhGQ21VWWdYZgphaENUMHBFMGFiTGVIcXc5ekVHa2VZYkcyZUlVUHBJVDludzNReHFuQnFhZGtmYURSNHNHMTVURzI4b3dWWEdKCmREYWFhTHRPWUpQUmQ3UWVnK0NwQlgyVDBsMXRvZFc5eERWeklGckxWRDE5a0hNTzdlN1pQZThFcWFPTXdTeDIKNWJwQWRNOHpuVkF3ZkFhTE9tN1RHY1BZR1hqd2gxWkJ1Nm5sa2VVcFlMN1hZaXV6dDVPYlVKeTNUUEJSZEZTcQpHbkpveDlBRkFKY0FtS1F3TTBYdEROSmpqYnNEWUFTVFp4OUJmd1h1bjUvak5QZ2JERHlSUld0TWZvc0FNdXVZCjVzMC95Zm1teFVLclVVUmdFZXRhWHY2S1dLVENCRks0NmRoa0p2NzdFSFVQTExwd3Z5WkQ4SnlqNWRScDlhZnYKVGdJK21MVEpjNWlNbVlQaVhzOXpTVnJvS3g1K2tMc1lhalVDbEt1dWdyRjY5MEdQaitGaWNUa2NscG5UY2ZoNQowdFFQQUEycFJsV3dRUGU5UGxlb1R2U0V3V0xpRE9JTTQ0Q3R0bUJ2eGgvQ0J3SXA4cEc5S2tjUEpIZCsxcWNBCnZsNGhaWmtaSUsydUJxQ1U3c1c4dk5oVklBRjhSc1RSV0VMRlIvUVZuSzY2dHltb3huSDNMV1RZenhoVk1adWsKaUQwUUorSEkrY3QzR0xZejRJdC9kNGFlRlpVYW9Wa3BqbEl3MGMwSmVBMENBd0VBQWFOQ01FQXdEZ1lEVlIwUApBUUgvQkFRREFnS2tNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGSHRJMjN1WTRYblB6Y1RWCjlmdlJGS2VadXNlYU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQ0FRQmZrdnpMdld2R3JBbmhkMW05dU9CRTJRTDkKNFpMY1lzYys2bStwdEVoUVYyQmY5VjE2YWpubzF2THRTMnhRelJWN21hdHBocEp6ODNKSnpDbXJMSWY3b0xzYgpKdi94WWFVczcyejR1VDdmV1ZFNEtZcEJwOGZJbmxQblhqUG9sc1dMOXBRSVVIcE9xTmU3dGZORkVsTnZGbE9wCkFXM3RjMUt5WGdqVUFIay9nMXA4MitHYWVxOHNKQ1N1YzA3d2dSYjY1NlhDK0RMOEZjZHZpSCtIQ2JHV0hmS3MKcEVZTEkwano3dmZaYTcwdlE0TVdLYm1XSjhkb2tRSEczUjhOR1RabFNsTitGMjR3bXAxREgvRmREVzRnZ01ueQpKZDVNU1ZpU1V6T0s5WGhyazdnN0h2dHFnTjhLczFWei9xTmd4dExjYXFjREdXS1pFVGVrbisrbnFuTm9UckQrCmlQRGl1QmRuSngxTG8wS3BOQVA0MTR2dVlkT0g3QUJvSE9ZMVhLajBEWEROa2p4MnJGbkNwb1dUZXhwWVUxV1cKenNObjZIYlZ1eFlVOXJhUzdneTI2dXpxN0swWTNvRXhJYWJrK3V6aGpiMWRDNFU3NTdCQnFnWXNtUTBseWRhMwoxb0NkdzNuc2NGUFN5UTR4dXYwY2FxdTFBK2pzSGtIbXN5cTZ6YVBDaTkxQzhMdmpHUjFTc0NpTU5TSzRQVHk5CjBxVkJBZUlseGUwWmVoWmNqam54WXlwUHZIdzZUOWc5YzJqNlZOc290ZGtGbVhhT05EYm1BOVFCSDU3SlBSRzgKVFdBeDlNRjFkOE13WWwzWDFPNkNvZGpRVCtPbzlPcHJsTkhHR1l6VVlSeGZCNW91RVVOaHp5M25PaWhxOE1zZwpFSDNERlR4T0djUUNPWW5jRVE9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==",
+                "host": "https://koalatech-7fy38n84.hcp.australiaeast.azmk8s.io:443",
+                "password": "js54y2xknkt91m8w7t9mttf47ggukvhxk4gopfp85drkzj5g90dxyg1vh17w9jn6htcpb2txdti80akc50xzgpjacnocyqkq0uztjev5k2oaaxkw9zjt9mkjbhdftqhi",
+                "username": "clusterUser_koalatech-week08-rg_ankit225665761-aks8"
+              }
+            ],
+            "kube_config_raw": "apiVersion: v1\nclusters:\n- cluster:\n    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUU2VENDQXRHZ0F3SUJBZ0lSQU5ZNUhlSlJGZ3AvbjB6RnZGbU53dlV3RFFZSktvWklodmNOQVFFTEJRQXcKRFRFTE1Ba0dBMVVFQXhNQ1kyRXdJQmNOTWpZd09URXdNREV5TmpVeldoZ1BNakExTmpBNU1UQXdNVE0yTlROYQpNQTB4Q3pBSkJnTlZCQU1UQW1OaE1JSUNJakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBZzhBTUlJQ0NnS0NBZ0VBCnVmRWpOOFZENlB0bUtoQmRFU0YwUFlvcTc3emtpbVBRdTlBYThxRHBNSWFEejBJYnRRYnpkaW9yNjlVa0tmQjQKZ3BRWkRDY3JNNkp4M2tuNjhWUGNibW5OMCtnYkwwa3dqV2VnQlBtYjhzQndSOVd1Umh3TlVGcXhGQ21VWWdYZgphaENUMHBFMGFiTGVIcXc5ekVHa2VZYkcyZUlVUHBJVDludzNReHFuQnFhZGtmYURSNHNHMTVURzI4b3dWWEdKCmREYWFhTHRPWUpQUmQ3UWVnK0NwQlgyVDBsMXRvZFc5eERWeklGckxWRDE5a0hNTzdlN1pQZThFcWFPTXdTeDIKNWJwQWRNOHpuVkF3ZkFhTE9tN1RHY1BZR1hqd2gxWkJ1Nm5sa2VVcFlMN1hZaXV6dDVPYlVKeTNUUEJSZEZTcQpHbkpveDlBRkFKY0FtS1F3TTBYdEROSmpqYnNEWUFTVFp4OUJmd1h1bjUvak5QZ2JERHlSUld0TWZvc0FNdXVZCjVzMC95Zm1teFVLclVVUmdFZXRhWHY2S1dLVENCRks0NmRoa0p2NzdFSFVQTExwd3Z5WkQ4SnlqNWRScDlhZnYKVGdJK21MVEpjNWlNbVlQaVhzOXpTVnJvS3g1K2tMc1lhalVDbEt1dWdyRjY5MEdQaitGaWNUa2NscG5UY2ZoNQowdFFQQUEycFJsV3dRUGU5UGxlb1R2U0V3V0xpRE9JTTQ0Q3R0bUJ2eGgvQ0J3SXA4cEc5S2tjUEpIZCsxcWNBCnZsNGhaWmtaSUsydUJxQ1U3c1c4dk5oVklBRjhSc1RSV0VMRlIvUVZuSzY2dHltb3huSDNMV1RZenhoVk1adWsKaUQwUUorSEkrY3QzR0xZejRJdC9kNGFlRlpVYW9Wa3BqbEl3MGMwSmVBMENBd0VBQWFOQ01FQXdEZ1lEVlIwUApBUUgvQkFRREFnS2tNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGSHRJMjN1WTRYblB6Y1RWCjlmdlJGS2VadXNlYU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQ0FRQmZrdnpMdld2R3JBbmhkMW05dU9CRTJRTDkKNFpMY1lzYys2bStwdEVoUVYyQmY5VjE2YWpubzF2THRTMnhRelJWN21hdHBocEp6ODNKSnpDbXJMSWY3b0xzYgpKdi94WWFVczcyejR1VDdmV1ZFNEtZcEJwOGZJbmxQblhqUG9sc1dMOXBRSVVIcE9xTmU3dGZORkVsTnZGbE9wCkFXM3RjMUt5WGdqVUFIay9nMXA4MitHYWVxOHNKQ1N1YzA3d2dSYjY1NlhDK0RMOEZjZHZpSCtIQ2JHV0hmS3MKcEVZTEkwano3dmZaYTcwdlE0TVdLYm1XSjhkb2tRSEczUjhOR1RabFNsTitGMjR3bXAxREgvRmREVzRnZ01ueQpKZDVNU1ZpU1V6T0s5WGhyazdnN0h2dHFnTjhLczFWei9xTmd4dExjYXFjREdXS1pFVGVrbisrbnFuTm9UckQrCmlQRGl1QmRuSngxTG8wS3BOQVA0MTR2dVlkT0g3QUJvSE9ZMVhLajBEWEROa2p4MnJGbkNwb1dUZXhwWVUxV1cKenNObjZIYlZ1eFlVOXJhUzdneTI2dXpxN0swWTNvRXhJYWJrK3V6aGpiMWRDNFU3NTdCQnFnWXNtUTBseWRhMwoxb0NkdzNuc2NGUFN5UTR4dXYwY2FxdTFBK2pzSGtIbXN5cTZ6YVBDaTkxQzhMdmpHUjFTc0NpTU5TSzRQVHk5CjBxVkJBZUlseGUwWmVoWmNqam54WXlwUHZIdzZUOWc5YzJqNlZOc290ZGtGbVhhT05EYm1BOVFCSDU3SlBSRzgKVFdBeDlNRjFkOE13WWwzWDFPNkNvZGpRVCtPbzlPcHJsTkhHR1l6VVlSeGZCNW91RVVOaHp5M25PaWhxOE1zZwpFSDNERlR4T0djUUNPWW5jRVE9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==\n    server: https://koalatech-7fy38n84.hcp.australiaeast.azmk8s.io:443\n  name: ankit225665761-aks8\ncontexts:\n- context:\n    cluster: ankit225665761-aks8\n    user: clusterUser_koalatech-week08-rg_ankit225665761-aks8\n  name: ankit225665761-aks8\ncurrent-context: ankit225665761-aks8\nkind: Config\nusers:\n- name: clusterUser_koalatech-week08-rg_ankit225665761-aks8\n  user:\n    client-certificate-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZIVENDQXdXZ0F3SUJBZ0lRV0RMck1US1V2b25OdFdsS25FOC9RREFOQmdrcWhraUc5dzBCQVFzRkFEQU4KTVFzd0NRWURWUVFERXdKallUQWVGdzB5TmpBNU1UQXdNVEkyTlROYUZ3MHlPREE1TVRBd01UTTJOVE5hTURBeApGekFWQmdOVkJBb1REbk41YzNSbGJUcHRZWE4wWlhKek1SVXdFd1lEVlFRREV3eHRZWE4wWlhKamJHbGxiblF3CmdnSWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUNEd0F3Z2dJS0FvSUNBUUMzSDM3dUpwallXS201M0Q2RUpmUVAKdVRIbUdEQXVHK2ZVdlR1RDFsVXFXTkxWWFd1dnVkYkNhR1A3K0UxY2piYTN3cG5qTzlkSE1RM3JMSWhNcG5GWgphdUZVRkswdU42R0s0MERPd25xdkdPVnJjOTNCc2QreW5SR2RiSTBtaUVBcEdPUGdXUVNPSTV4M0hxbWhVdSs5CjhkaXNIdHgwbGp0U2p2NlZyYUJHS0pVODZOQ3VuR1A2NnIxSlZWcitxMy9xczNucVlaOGo5ZWtMYWpjbElpNU8KKytUS3hGdjhGSUJoQ1ZwQU92MHNhNVE2S1VndEt6RmF3NUYvc3FlTXBpUEwrdXM3MUE1SVpuYyt3ZFRWbVJtMQpobFZEK2lXQ2diekpReUdBZUtZZjJJYkJnVU1rWWs2bUxFd3RvZ2czTjJYdGlSTjN5eDd5aXd5dGpOTGVaOVB5CnoraDZKRkcxa05ReW4zaWlKakw0K3ZkeGljTGpaY1FzMFluZndwT3JPMUZwRU0xSmZYNkFUaUExY05wb2M3MTgKSHVPYUVaeUNyTkptSks2RTQ5ViszMUM1S3J1MkZaeGUvR3NSSVI1RVhrNUVwaDRkU1JsaXF3OHdYQXFTSlZUNQowY0w5WlUraWxJY0xBZisvWHFSZ0xPRkY2QTd3aXgxSTRjQXVzQmNNZFZTdm5rWXZyMnhzRkJWUUZJSU53RVVBCkxYN0hmZU5jdXJxZmppblJlSjVWMDFlWitXZGxqQ0hBZmMzdERlZkFGSVRyUDdOcmh6M1BwRUtZdEpBR2lYb2kKRXZwZi9wMjF3ZzVKV3NJMkJqVmgyUWVkTnYrOXF0ZFlsekxROUNNT1pqVFlaYXZYMWg2eUdsWDZ6VXcvY1kvKwpyMnB3REJta3Jkci9tZmVFeGJ0REZRSURBUUFCbzFZd1ZEQU9CZ05WSFE4QkFmOEVCQU1DQmFBd0V3WURWUjBsCkJBd3dDZ1lJS3dZQkJRVUhBd0l3REFZRFZSMFRBUUgvQkFJd0FEQWZCZ05WSFNNRUdEQVdnQlI3U050N21PRjUKejgzRTFmWDcwUlNubWJySG1qQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FnRUFFWk5kME1uekVseUpvbVZZRVFBRQozejhDRVBDdDRTV2FBVkNKcjVuMmpSejlZTFpCMHRQZzFLSXZiZmJVUnh0Vk9paHlVL2QxTE85VVYycFBGRnNNClA1UkEzZExBWXhKMEVYbXMrR1pWbXVSM2xqYmZsNkwyNFBwQmRsVHpkQjBYMGthd2R3SHVYVVRvUEdwU3laTDQKdjFuRkNoazJlSVVIUWtmdThzcEdXb1BvdzFTM0ZCbmM3T1Y2K1lvSThIYmZrUUo2eE9EcmpRaWxtanZ6bG1XWQpZclBOdVltYU9wV0VLcVM1bTQzUk12SUsxM3M0TEVIRytGS2xxekNMc0FSUk4xUGQ5a0hWYlkyRGkwK054dWpZClZFSzRlMitzUll6QWd2NEp5UkRJN2Jza3dKWnlWOVNtR01KMEVyV2NBQzMzOHlGdHRBeTFUakxtd0p2a2hNUCsKZ0VRU0xEbk85b2ZZMmJ5RXdPZkE1ckswQWFYSXhwZlJZQmRGRmdYN0hHbUtoa1pvd2pUcnNTL2V1aXIzQ0JSWQp3R2x4T0NqSTgzTDlORzVhYnZ6R1dkZytwbTdhMlVsMGhmaFh0OXFIbmJzcEFkVEhWemtIdVJjRUVRV1VxTjhECmE5OHBPdzBXb2g1bEEyVHNEckxSZGJCQzY2cHREVTQ5S0ZaV0ZvZDhCYzJ6Z3JId2NPcENBaU5sRTJ0dUJyNUcKS0twa01RWGxBZHI3RE56WWh0QjdKeFkvNTNlTVBlVmRTRTVRQTkxcGJpaE92OWZJUWpHVXJJeFMzMFdzNERoZApxYWVsZ29ycnRxM24rMFF1SmpndytIelFiSTkvTXoyZFVWQzhrS3AvNkVwOTlOb1JvWnZTUXVOYmhHbkJxYXY2Cm1MZ2JlTHAyN3ZMOVlkOWtUd1lZUHhnPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==\n    client-key-data: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlKS1FJQkFBS0NBZ0VBdHg5KzdpYVkyRmlwdWR3K2hDWDBEN2t4NWhnd0xodm4xTDA3ZzlaVktsalMxVjFyCnI3bld3bWhqKy9oTlhJMjJ0OEtaNHp2WFJ6RU42eXlJVEtaeFdXcmhWQlN0TGplaGl1TkF6c0o2cnhqbGEzUGQKd2JIZnNwMFJuV3lOSm9oQUtSamo0RmtFamlPY2R4NnBvVkx2dmZIWXJCN2NkSlk3VW83K2xhMmdSaWlWUE9qUQpycHhqK3VxOVNWVmEvcXQvNnJONTZtR2ZJL1hwQzJvM0pTSXVUdnZreXNSYi9CU0FZUWxhUURyOUxHdVVPaWxJCkxTc3hXc09SZjdLbmpLWWp5L3JyTzlRT1NHWjNQc0hVMVprWnRZWlZRL29sZ29HOHlVTWhnSGltSDlpR3dZRkQKSkdKT3BpeE1MYUlJTnpkbDdZa1RkOHNlOG9zTXJZelMzbWZUOHMvb2VpUlJ0WkRVTXA5NG9pWXkrUHIzY1luQwo0MlhFTE5HSjM4S1RxenRSYVJETlNYMStnRTRnTlhEYWFITzlmQjdqbWhHY2dxelNaaVN1aE9QVmZ0OVF1U3E3CnRoV2NYdnhyRVNFZVJGNU9SS1llSFVrWllxc1BNRndLa2lWVStkSEMvV1ZQb3BTSEN3SC92MTZrWUN6aFJlZ08KOElzZFNPSEFMckFYREhWVXI1NUdMNjlzYkJRVlVCU0NEY0JGQUMxK3gzM2pYTHE2bjQ0cDBYaWVWZE5YbWZsbgpaWXdod0gzTjdRM253QlNFNnoremE0Yzl6NlJDbUxTUUJvbDZJaEw2WC82ZHRjSU9TVnJDTmdZMVlka0huVGIvCnZhclhXSmN5MFBRakRtWTAyR1dyMTlZZXNocFYrczFNUDNHUC9xOXFjQXdacEszYS81bjNoTVc3UXhVQ0F3RUEKQVFLQ0FnQUFyMTFmSXgweGt0VUV3aURLS1ZjOHN6QlY5eEQ4OTh5MEFKcm1ZNnRrYWxHeTlCcG53bWVUeVIrTgpYUUpzTzhvM0ZZMUdjeTFIRnNzbXBCQWNXOUhGa2tlZjBrT084MVZGbEF5dWlpbk81MWpWTXM1SmRDYmpCT1lpClpCaWRta2pnb2RqK1JiOWxkTzcyUmc5bjl2cnUwWmxQcjdycm1WeEZJa1FEMmtWNUFSVTZkMC9iZXJvVHdYbmkKVWV3b1JXazZkT2F1ZTVBT29KZEtEckhldnc4bEU5ekhqajMyRHJTNzBKMC9Mc29tWmZmSVRDQko4TnlVblBpUgpOVEl5TkdRT2hYNjN4cTZQMW8vREFIRmJlNTJOODhHSW9wMzRRR0RWWEIyUE93eTZ4cHdOenJxM2tiUjRJN2YzClZxNTJjd3Y0a0hPbldYeS9hYURuNFlFd2J2UjRpWHZTWEcwUFNLUDFxSVVKUmhLSHE5My9YcjRzcEJoTVA5TTMKMDBxMkZmNFRSYXRGblN6RHNldE9lR0dRUkRWMzRnU2JVTUxrRnNROXZoQlpCejViN0dnVjltUldKWUpqNUtSOQpqMmMxbGM5QU5pem9UV3ljWlgxMlVLN1VIVTNidFR4dS8vZUppcmJCZUtTN0QvVWNTbWtTUjZMaUJ3QXU0NzNiCnB6dndzT1cvUnRvbTBnRTRGZFJYbWJZeFhjZ2FhSWZ5dm80dGpNUUR6bmdMdzFUdTVuSUc1YytGWlEzUDhRcGsKK1dxaFZaMHpmOUN4dzRiL05ZMTduRGJzNm8xT0JZalg0cHIrQy9kSkRXY2l1WVpTSTBmSkR4Sk5TQU9aYjlsQQpsa254T0NXYzVaQ3lrTm9ycmdmL2tJeklNZXZSM1hxbFAzOWVHSHZuZ2JKaXlkUHl3UUtDQVFFQTdUOGVvSWo2Ck1PZjhKTUVPR1lBVnlKVFBUbEtzeU1BRktUQ3k4T2ovdDkwenRaVy8vaTRETW9NakV6YjRZdUY3Q2lkdlZsd1kKVEM5ZVp2VzVYdW94bkJUTEFwb0JIam9ack1TNnFadFlMTS9SOHNPWDFpR3A4T25lZXFCWkc1eGRTcEs4NE40MQpQbktIWCtZY09lMmp3ZC95NmpoOHpScnRWejZCTENGZkl3bm14M3lIeUswQ0xzaXpJMER5VGZwUzRJOEs2aTlhCmx2QUJyTmlYVS9tNUgrN0NqZjhNWmlsdHVTNXIwT0tKN1huWCtKV0FuRjg2OHVhWm05RCswUjBqOWs4N1NZOG8KbVZwdUVoYU44S25hWjczWHlmdjdtaUhjVHYxQjVsc01kNTNFZTVKcDBVVXE2TlVsS0Z0K09CdmluUEp0NFV0QwpBNTJRRjRCeGRRRUp1UUtDQVFFQXhaa2tUQUEyeStJZVBJd29EUitsQWdtRVZLVkpyWU5OQXUxOWhDblYrZjlkCkZZS1hOZExTcmhRSldWRDdkZEpZYy9aMXptRzJXK1U0SGM1b1hCNmZ5QUdDRERyZGs4bHkxbzhMRUYrMHVFS2gKV3dVT0s4YXFWUTc5YSsxSzBPdjhWVnVJaVF4Z0dvWDUrN0ZOV1JNSE9SdmMrRG9QU2ROUkxXVDJJVmtDODlxMApwYysycjl0MWNQKzNSRDBmcG1XOUJDQy9XVUMwTmltbDh0YWxUY3VBT0tiY3BUb2lCMEJoSi9mZEc1UVhPdTNHCkN3SlQvTjhGVmJ2ek5qSFFOUndYWldramhqSFFUc1d5L3B2cU9ac00zRFdGakQxUkVhaHR6TFh0bjRlclZVT28KdVE5S1UzRVpnUHNMejZxZVRqWnkzdExQck5zN0k3TXJBZHpuSCt5Q1BRS0NBUUVBMWpkRENVTUZYVGxxb3lrcAorUDU5TE5LbzZKaWY2TmZ4RVFNbTMzNFN2OHJja040NU1HSU5nd09EblNycVZpWXdPYmZud1B1QStQRmdkT2owCnl1MzlnMmdHOGo5cU9RZk8vUC9aWjZHYm1VTEEyRW1oaExoNndNdjZsWkRKUkxRSVRIaDRVVFp5cndNc2x2dW8KaXVtM0RpeVBJc3VFYkpJZXNjTC9VWUNFYlpmWUtGR2FMU21DS2dvUUxnbkxmM3RDYi83WXBTSEMwenk4MW52dgpEK1VSTWZNYytxZkxZMGVQQ2tFUEd0b2lIaW9CUnpSK256TWhnQWVWdFdxZFd1WEwvZkFHb1dIQkQ4N21TakRSClV2ZWEvRWNmWEFMSmFKK2dWRFk2MWF0cWMyc2g2VTRIZSt6UFZOSjRMWnVIT1ZSOFpxaERiTVRPUTROMmdySDQKUCtTRENRS0NBUUVBbXRnNGJtcFlob3Nxd0szZ2tQQTBZWlZOb3Z0bjhsWUxXbmo3UEQrQWxBaytTNlhya3QwawpCaEJqaHgrRC9yK1lXejlPOEN6NE42azN3WHZIb2pESmEzVnJFT1JzVU95elZsb0FCSlBMVGYzQTdrL1czQTB4CjI3Z0VkYmdkUWYwNzN6UDhtZEVkMm9zVTY5ejBUUkl4UGRxTTNlUzVxRk8xc0lvR3F2bFM2LzkrUXRXMFJya0cKbmtkMXVUN2c5NGVRaUpTVS9uOUsrWXJIcGJYNUVpNmZ5MFZQY1JkT0pUcVpLRFgvaWlZUjBqY1VVL28rRU5KQQpId0JMUmpQaEFrMkNOQkVoS244TXl6MzMxN2djNDRtU21WcER6ak1hdldpc3FwZ0NuMW8wdEh0eDA1dWMxaWl5CklMWWFlbUVzN3dPU0h2VTZreTIxZVhObEIyK3htdjIrelFLQ0FRQU44eHBqb2xPU1d6QTdVbVMzamRzR2wvMHcKRnYyNGYza3I5b2pjVkN1RXRsdGFtbDBzUVkxYzFyL1Z1MWh2dkxMUGFIU1NpTm5TbDVKZU1OR29YakNpd2prUQpmbWt0bGdOOGk0NEdEZUpDYkh1T1VoMzNMYzcrMlNMM1BzVzA0Zmc2YitNQ3B1M0FuUXFBUnpscWlkd1dwdWI3CmFHNnJTd0NWV3BtbGxpM3JQWEgwcFljUUpUZnl2WDVZNnRsVzFBNDdFWnBHVjY3YjlRRkswMkF1UStUNTNNOW4KVnk2L2U5aE0yckk3dFRNUU9UZTdYK3luZGgyY0NMOUczVnUvcHRlOWRpMDNNT1NnNXljSDRUamkvKy85TEZlcwpHR25MRUwyb3l5ZFZRVnhDNzZpTzhQWGlGNVMvMnQxQm9aaXc4YUh4UW16UHNTWmovUzlDSEF6WlMwL0QKLS0tLS1FTkQgUlNBIFBSSVZBVEUgS0VZLS0tLS0K\n    token: js54y2xknkt91m8w7t9mttf47ggukvhxk4gopfp85drkzj5g90dxyg1vh17w9jn6htcpb2txdti80akc50xzgpjacnocyqkq0uztjev5k2oaaxkw9zjt9mkjbhdftqhi\n",
+            "kubelet_identity": [
+              {
+                "client_id": "8955f145-ca90-45b2-8ed5-6c4417e71e62",
+                "object_id": "5e958c92-25bf-4653-a1ff-1c7438008967",
+                "user_assigned_identity_id": "/subscriptions/773b1085-45bc-4a25-b2d2-da8836c356cf/resourceGroups/MC_koalatech-week08-rg_ankit225665761-aks8_australiaeast/providers/Microsoft.ManagedIdentity/userAssignedIdentities/ankit225665761-aks8-agentpool"
+              }
+            ],
+            "kubernetes_version": "1.36.1",
+            "linux_profile": [],
+            "local_account_disabled": false,
+            "location": "australiaeast",
+            "maintenance_window": [],
+            "maintenance_window_auto_upgrade": [],
+            "maintenance_window_node_os": [],
+            "microsoft_defender": [],
+            "monitor_metrics": [],
+            "name": "ankit225665761-aks8",
+            "network_profile": [
+              {
+                "advanced_networking": [],
+                "dns_service_ip": "10.0.0.10",
+                "ip_versions": [
+                  "IPv4"
+                ],
+                "load_balancer_profile": [
+                  {
+                    "backend_pool_type": "NodeIPConfiguration",
+                    "effective_outbound_ips": [
+                      "/subscriptions/773b1085-45bc-4a25-b2d2-da8836c356cf/resourceGroups/MC_koalatech-week08-rg_ankit225665761-aks8_australiaeast/providers/Microsoft.Network/publicIPAddresses/f4bc9600-5a4e-4542-bb1d-5e8d7a1ea5ba"
+                    ],
+                    "idle_timeout_in_minutes": 0,
+                    "managed_outbound_ip_count": 1,
+                    "managed_outbound_ipv6_count": 0,
+                    "outbound_ip_address_ids": [],
+                    "outbound_ip_prefix_ids": [],
+                    "outbound_ports_allocated": 0
+                  }
+                ],
+                "load_balancer_sku": "standard",
+                "nat_gateway_profile": [],
+                "network_data_plane": "azure",
+                "network_mode": "",
+                "network_plugin": "azure",
+                "network_plugin_mode": "overlay",
+                "network_policy": "",
+                "outbound_type": "loadBalancer",
+                "pod_cidr": "10.244.0.0/16",
+                "pod_cidrs": [
+                  "10.244.0.0/16"
+                ],
+                "service_cidr": "10.0.0.0/16",
+                "service_cidrs": [
+                  "10.0.0.0/16"
+                ]
+              }
+            ],
+            "node_os_upgrade_channel": "NodeImage",
+            "node_provisioning_profile": [
+              {
+                "default_node_pools": "",
+                "mode": "Manual"
+              }
+            ],
+            "node_resource_group": "MC_koalatech-week08-rg_ankit225665761-aks8_australiaeast",
+            "node_resource_group_id": "/subscriptions/773b1085-45bc-4a25-b2d2-da8836c356cf/resourceGroups/MC_koalatech-week08-rg_ankit225665761-aks8_australiaeast",
+            "oidc_issuer_enabled": true,
+            "oidc_issuer_url": "https://australiaeast.oic.prod-aks.azure.com/2625129d-99a2-4df5-988e-5c5d07e7d0fb/663db2b7-9317-4348-b05c-6d6355c659b8/",
+            "oms_agent": [],
+            "open_service_mesh_enabled": false,
+            "portal_fqdn": "koalatech-7fy38n84.portal.hcp.australiaeast.azmk8s.io",
+            "private_cluster_enabled": false,
+            "private_cluster_public_fqdn_enabled": false,
+            "private_dns_zone_id": "",
+            "private_fqdn": "",
+            "resource_group_name": "koalatech-week08-rg",
+            "role_based_access_control_enabled": true,
+            "run_command_enabled": true,
+            "service_mesh_profile": [],
+            "service_principal": [],
+            "sku_tier": "Free",
+            "storage_profile": [],
+            "support_plan": "KubernetesOfficial",
+            "tags": {
+              "Environment": "development",
+              "ManagedBy": "Terraform",
+              "Practical": "Week08",
+              "Project": "KoalaTech Course Platform"
+            },
+            "timeouts": null,
+            "upgrade_override": [],
+            "web_app_routing": [],
+            "windows_profile": [],
+            "workload_autoscaler_profile": [],
+            "workload_identity_enabled": false
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "kube_admin_config"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "kube_admin_config_raw"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "kube_config"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "kube_config_raw"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo1NDAwMDAwMDAwMDAwLCJkZWxldGUiOjU0MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjo1NDAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIyIn0=",
+          "dependencies": [
+            "azurerm_resource_group.rg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_resource_group",
+      "name": "rg",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/773b1085-45bc-4a25-b2d2-da8836c356cf/resourceGroups/koalatech-week08-rg",
+            "location": "australiaeast",
+            "managed_by": "",
+            "name": "koalatech-week08-rg",
+            "tags": {
+              "Environment": "development",
+              "ManagedBy": "Terraform",
+              "Practical": "Week08",
+              "Project": "KoalaTech Course Platform"
+            },
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "name": "koalatech-week08-rg",
+            "subscription_id": "773b1085-45bc-4a25-b2d2-da8836c356cf"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo1NDAwMDAwMDAwMDAwLCJkZWxldGUiOjU0MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjo1NDAwMDAwMDAwMDAwfX0="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_role_assignment",
+      "name": "acr_pull",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "condition": "",
+            "condition_version": "",
+            "delegated_managed_identity_resource_id": "",
+            "description": "",
+            "id": "/subscriptions/773b1085-45bc-4a25-b2d2-da8836c356cf/resourceGroups/koalatech-week08-rg/providers/Microsoft.ContainerRegistry/registries/ankit225665761acr8/providers/Microsoft.Authorization/roleAssignments/3c3e5c84-f1ac-197c-1f37-afa5090028e1",
+            "name": "3c3e5c84-f1ac-197c-1f37-afa5090028e1",
+            "principal_id": "5e958c92-25bf-4653-a1ff-1c7438008967",
+            "principal_type": "ServicePrincipal",
+            "role_definition_id": "/subscriptions/773b1085-45bc-4a25-b2d2-da8836c356cf/providers/Microsoft.Authorization/roleDefinitions/7f951dda-4ed3-4680-a7ca-43fe172d538d",
+            "role_definition_name": "AcrPull",
+            "scope": "/subscriptions/773b1085-45bc-4a25-b2d2-da8836c356cf/resourceGroups/koalatech-week08-rg/providers/Microsoft.ContainerRegistry/registries/ankit225665761acr8",
+            "skip_service_principal_aad_check": true,
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "azurerm_container_registry.acr",
+            "azurerm_kubernetes_cluster.aks",
+            "azurerm_resource_group.rg"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": [
+    {
+      "object_kind": "var",
+      "config_addr": "var.storage_account_name",
+      "status": "unknown",
+      "objects": null
+    },
+    {
+      "object_kind": "var",
+      "config_addr": "var.aks_node_count",
+      "status": "unknown",
+      "objects": null
+    },
+    {
+      "object_kind": "var",
+      "config_addr": "var.acr_name",
+      "status": "unknown",
+      "objects": null
+    }
+  ]
+}

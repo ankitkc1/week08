@@ -196,4 +196,14 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 
+.aztemp
+.terraform/
+
+
 node_modules/
+# Terraform local files
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/crash.log
+terraform/crash.*.log
