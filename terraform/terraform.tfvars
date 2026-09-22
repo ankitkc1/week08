@@ -1,14 +1,14 @@
 location            = "Australia East"
-resource_group_name = "koalatech-week08-rg"
+resource_group_name = "koalatech-week10-rg"
 
 # Azure Container Registry
-acr_name = "ankit225665761acr8"
+acr_name = "ankit225665761acr10"
 
 # Azure Storage Account
-storage_account_name = "ankit225665761st8"
+storage_account_name = "ankit225665761st10"
 
 # Azure Kubernetes Service
-aks_cluster_name = "ankit225665761-aks8"
+aks_cluster_name = "ankit225665761-aks10"
 aks_dns_prefix   = "koalatech"
 
 # Week 08 specifically requires 3 AKS nodes
@@ -20,6 +20,6 @@ environment = "development"
 tags = {
   Project     = "KoalaTech Course Platform"
   ManagedBy   = "Terraform"
-  Practical   = "Week09"
+  Practical   = "Week10"
   Environment = "development"
 }

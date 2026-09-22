@@ -149,3 +149,30 @@ jobs:
           kubectl get pods -n staging
           kubectl get services -n staging
           kubectl get pvc -n staging
+      
+      - name: Setup Helm
+        uses: azure/setup-helm@v5
+        with:
+          version: latest
+
+      - name: Add Prometheus Helm repository
+        run: |
+          helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+          helm repo update
+
+      - name: Deploy Prometheus and Grafana
+        run: |
+          helm upgrade --install koalatech-monitoring \
+            prometheus-community/kube-prometheus-stack \
+            --namespace monitoring \
+            --create-namespace \
+            --wait \
+            --timeout 10m
+
+      - name: Verify monitoring components
+        run: |
+          echo "=== Monitoring Pods ==="
+          kubectl get pods -n monitoring
+
+          echo "=== Monitoring Services ==="
+          kubectl get svc -n monitoring

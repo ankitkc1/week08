@@ -202,8 +202,16 @@ cython_debug/
 
 node_modules/
 # Terraform local files
+# Terraform
 terraform/.terraform/
 terraform/*.tfstate
 terraform/*.tfstate.*
-terraform/crash.log
-terraform/crash.*.log
+terraform/*.tfplan
+terraform/.terraform.lock.hcl
+
+
+# Terraform state files
+*.tfstate
+*.tfstate.*
+.terraform/
+
