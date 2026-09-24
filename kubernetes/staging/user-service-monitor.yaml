@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: user-service-monitor
+  namespace: staging
+  labels:
+    release: koalatech-monitoring
+spec:
+  selector:
+    matchLabels:
+      app: user-service
+
+  namespaceSelector:
+    matchNames:
+      - staging
+
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s
+      scrapeTimeout: 10s
