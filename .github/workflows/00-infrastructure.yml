@@ -2,6 +2,7 @@ name: 00 - Infrastructure
 
 on:
   workflow_dispatch:
+
   push:
     branches:
       - main
@@ -11,7 +12,7 @@ on:
 
 jobs:
   terraform:
-    name: Terraform Validation and Plan
+    name: Terraform Infrastructure
     runs-on: ubuntu-latest
 
     defaults:
@@ -38,9 +39,6 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate
-
-      - name: Terraform Plan
-        run: terraform plan -input=false -no-color
 
       - name: Terraform Plan
         run: terraform plan -input=false -out=tfplan
