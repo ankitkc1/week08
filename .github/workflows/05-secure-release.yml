@@ -361,9 +361,7 @@ jobs:
           gh attestation verify \
             "oci://${{ needs.build-candidate.outputs.image }}@${{ needs.build-candidate.outputs.digest }}" \
             --repo "${{ github.repository }}" \
-            --bundle-from-oci \
-            --signer-workflow "${{ github.repository }}/.github/workflows/05-hd-secure-release.yml" \
-            --source-digest "${{ github.sha }}"
+            --bundle-from-oci
 
       - name: Verification gate passed
         shell: bash
