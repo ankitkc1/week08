@@ -310,3 +310,71 @@ jobs:
           echo "Provenance URL  : ${{ steps.provenance.outputs.attestation-url }}"
           echo "SBOM URL        : ${{ steps.sbom-attestation.outputs.attestation-url }}"
           echo "========================================="
+
+  # =========================================================
+  # Stage 6 - Independent provenance verification
+  # Trust gate before deployment
+  # =========================================================
+  verify-provenance:
+    name: 6 - Verify Trusted Provenance
+    runs-on: ubuntu-latest
+
+    needs:
+      - build-candidate
+      - attest-release
+
+    permissions:
+      contents: read
+
+    env:
+      GH_TOKEN: ${{ github.token }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Login to Azure
+        uses: azure/login@v3
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Login to Azure Container Registry
+        run: |
+          az acr login --name ${{ vars.ACR_NAME }}
+
+      - name: Show verification policy
+        shell: bash
+        run: |
+          echo "========================================="
+          echo "TRUST VERIFICATION POLICY"
+          echo "========================================="
+          echo "Image     : ${{ needs.build-candidate.outputs.image }}"
+          echo "Digest    : ${{ needs.build-candidate.outputs.digest }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Commit    : ${{ github.sha }}"
+          echo "Workflow  : .github/workflows/05-hd-secure-release.yml"
+          echo "========================================="
+
+      - name: Verify provenance from OCI registry
+        shell: bash
+        run: |
+          gh attestation verify \
+            "oci://${{ needs.build-candidate.outputs.image }}@${{ needs.build-candidate.outputs.digest }}" \
+            --repo "${{ github.repository }}" \
+            --bundle-from-oci \
+            --signer-workflow "${{ github.repository }}/.github/workflows/05-hd-secure-release.yml" \
+            --source-digest "${{ github.sha }}"
+
+      - name: Verification gate passed
+        shell: bash
+        run: |
+          echo "========================================="
+          echo "TRUST GATE PASSED"
+          echo "========================================="
+          echo "The release candidate has valid provenance."
+          echo "Repository : ${{ github.repository }}"
+          echo "Commit     : ${{ github.sha }}"
+          echo "Image      : ${{ needs.build-candidate.outputs.image }}"
+          echo "Digest     : ${{ needs.build-candidate.outputs.digest }}"
+          echo "Deployment is now permitted."
+          echo "========================================="
