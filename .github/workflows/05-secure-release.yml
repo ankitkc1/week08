@@ -355,13 +355,17 @@ jobs:
           echo "Workflow  : .github/workflows/05-hd-secure-release.yml"
           echo "========================================="
 
-      - name: Verify provenance from OCI registry
+      - name: Verify trusted provenance
         shell: bash
         run: |
           gh attestation verify \
             "oci://${{ needs.build-candidate.outputs.image }}@${{ needs.build-candidate.outputs.digest }}" \
             --repo "${{ github.repository }}" \
-            --bundle-from-oci
+            --bundle-from-oci \
+            --signer-workflow "${{ github.repository }}/.github/workflows/05-secure-release.yml" \
+            --source-digest "${{ github.sha }}" \
+            --source-ref "refs/heads/secure-release" \
+            --deny-self-hosted-runners
 
       - name: Inspect verified provenance identity
         shell: bash
