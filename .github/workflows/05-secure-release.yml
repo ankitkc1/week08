@@ -132,3 +132,267 @@ jobs:
           echo "Image      : ${{ steps.image.outputs.image }}"
           echo "Digest     : ${{ steps.build.outputs.digest }}"
           echo "========================================="
+
+  # =========================================================
+  # Stage 3 - Container vulnerability policy
+  # =========================================================
+  vulnerability-gate:
+    name: 3 - Vulnerability Policy Gate
+    runs-on: ubuntu-latest
+
+    needs:
+      - build-candidate
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Login to Azure
+        uses: azure/login@v3
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Login to Azure Container Registry
+        run: |
+          az acr login --name ${{ vars.ACR_NAME }}
+
+      # -----------------------------------------------------
+      # Evidence scan Reports all HIGH and CRITICAL findings
+      # -----------------------------------------------------
+      - name: Generate full High and Critical vulnerability report
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ${{ needs.build-candidate.outputs.image }}@${{ needs.build-candidate.outputs.digest }}
+          format: json
+          output: trivy-report.json
+          severity: HIGH,CRITICAL
+          ignore-unfixed: false
+          exit-code: "0"
+
+      - name: Upload vulnerability report
+        uses: actions/upload-artifact@v4
+        with:
+          name: user-service-trivy-report
+          path: trivy-report.json
+
+      # -----------------------------------------------------
+      # Enforcement scan Fixable HIGH/CRITICAL findings cause pipeline failure.
+      # -----------------------------------------------------
+      - name: Enforce vulnerability release policy
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ${{ needs.build-candidate.outputs.image }}@${{ needs.build-candidate.outputs.digest }}
+          format: table
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+
+  # =========================================================
+  # Stage 4 - Generate Software Bill of Materials
+  # =========================================================
+  generate-sbom:
+    name: 4 - Generate CycloneDX SBOM
+    runs-on: ubuntu-latest
+
+    needs:
+      - build-candidate
+      - vulnerability-gate
+
+    steps:
+      - name: Login to Azure
+        uses: azure/login@v3
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Login to Azure Container Registry
+        run: |
+          az acr login --name ${{ vars.ACR_NAME }}
+
+      - name: Generate CycloneDX SBOM
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ${{ needs.build-candidate.outputs.image }}@${{ needs.build-candidate.outputs.digest }}
+          format: cyclonedx
+          output: sbom.cdx.json
+          exit-code: "0"
+
+      - name: Show SBOM summary
+        shell: bash
+        run: |
+          echo "========================================="
+          echo "CYCLONEDX SBOM GENERATED"
+          echo "========================================="
+          echo "Image  : ${{ needs.build-candidate.outputs.image }}"
+          echo "Digest : ${{ needs.build-candidate.outputs.digest }}"
+          echo "File   : sbom.cdx.json"
+          echo "Size   : $(du -h sbom.cdx.json | cut -f1)"
+          echo "========================================="
+
+      - name: Upload CycloneDX SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: user-service-cyclonedx-sbom
+          path: sbom.cdx.json
+          retention-days: 30
+
+  # =========================================================
+  # Stage 5 - Cryptographic provenance + SBOM attestation
+  # =========================================================
+  attest-release:
+    name: 5 - Attest Provenance and SBOM
+    runs-on: ubuntu-latest
+
+    needs:
+      - build-candidate
+      - generate-sbom
+
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Login to Azure
+        uses: azure/login@v3
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Login to Azure Container Registry
+        run: |
+          az acr login --name ${{ vars.ACR_NAME }}
+
+      - name: Download CycloneDX SBOM
+        uses: actions/download-artifact@v5
+        with:
+          name: user-service-cyclonedx-sbom
+          path: ./sbom
+
+      - name: Show attestation subject
+        run: |
+          echo "========================================="
+          echo "ATTESTATION SUBJECT"
+          echo "========================================="
+          echo "Image  : ${{ needs.build-candidate.outputs.image }}"
+          echo "Digest : ${{ needs.build-candidate.outputs.digest }}"
+          echo "Commit : ${{ github.sha }}"
+          echo "========================================="
+
+      - name: Generate build provenance attestation
+        id: provenance
+        uses: actions/attest@v4
+        with:
+          subject-name: ${{ needs.build-candidate.outputs.image }}
+          subject-digest: ${{ needs.build-candidate.outputs.digest }}
+          push-to-registry: true
+          create-storage-record: false
+
+      - name: Generate SBOM attestation
+        id: sbom-attestation
+        uses: actions/attest@v4
+        with:
+          subject-name: ${{ needs.build-candidate.outputs.image }}
+          subject-digest: ${{ needs.build-candidate.outputs.digest }}
+          sbom-path: ./sbom/sbom.cdx.json
+          push-to-registry: true
+          create-storage-record: false
+
+      - name: Show attestation results
+        run: |
+          echo "========================================="
+          echo "ATTESTATION COMPLETE"
+          echo "========================================="
+          echo "Image           : ${{ needs.build-candidate.outputs.image }}"
+          echo "Digest          : ${{ needs.build-candidate.outputs.digest }}"
+          echo "Provenance URL  : ${{ steps.provenance.outputs.attestation-url }}"
+          echo "SBOM URL        : ${{ steps.sbom-attestation.outputs.attestation-url }}"
+          echo "========================================="
+
+  # =========================================================
+  # Stage 6 - Independent provenance verification
+  # Trust gate before deployment
+  # =========================================================
+  verify-provenance:
+    name: 6 - Verify Trusted Provenance
+    runs-on: ubuntu-latest
+
+    needs:
+      - build-candidate
+      - attest-release
+
+    permissions:
+      contents: read
+
+    env:
+      GH_TOKEN: ${{ github.token }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Login to Azure
+        uses: azure/login@v3
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Login to Azure Container Registry
+        run: |
+          az acr login --name ${{ vars.ACR_NAME }}
+
+      - name: Show verification policy
+        shell: bash
+        run: |
+          echo "========================================="
+          echo "TRUST VERIFICATION POLICY"
+          echo "========================================="
+          echo "Image     : ${{ needs.build-candidate.outputs.image }}"
+          echo "Digest    : ${{ needs.build-candidate.outputs.digest }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Commit    : ${{ github.sha }}"
+          echo "Workflow  : .github/workflows/05-hd-secure-release.yml"
+          echo "========================================="
+
+      - name: Verify trusted provenance
+        shell: bash
+        run: |
+          gh attestation verify \
+            "oci://${{ needs.build-candidate.outputs.image }}@${{ needs.build-candidate.outputs.digest }}" \
+            --repo "${{ github.repository }}" \
+            --bundle-from-oci \
+            --signer-workflow "${{ github.repository }}/.github/workflows/05-secure-release.yml" \
+            --source-digest "${{ github.sha }}" \
+            --source-ref "refs/heads/secure-release" \
+            --deny-self-hosted-runners
+
+      - name: Inspect verified provenance identity
+        shell: bash
+        run: |
+          gh attestation verify \
+            "oci://${{ needs.build-candidate.outputs.image }}@${{ needs.build-candidate.outputs.digest }}" \
+            --repo "${{ github.repository }}" \
+            --bundle-from-oci \
+            --format json > verification.json
+
+          jq '.[] | {
+            certificate: .verificationResult.signature.certificate,
+            subject: .verificationResult.statement.subject,
+            predicateType: .verificationResult.statement.predicateType,
+            predicate: .verificationResult.statement.predicate
+          }' verification.json
+
+      - name: Verification gate passed
+        shell: bash
+        run: |
+          echo "========================================="
+          echo "TRUST GATE PASSED"
+          echo "========================================="
+          echo "The release candidate has valid provenance."
+          echo "Repository : ${{ github.repository }}"
+          echo "Commit     : ${{ github.sha }}"
+          echo "Image      : ${{ needs.build-candidate.outputs.image }}"
+          echo "Digest     : ${{ needs.build-candidate.outputs.digest }}"
+          echo "Deployment is now permitted."
+          echo "========================================="
