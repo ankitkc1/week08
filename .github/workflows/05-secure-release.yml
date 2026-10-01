@@ -363,6 +363,22 @@ jobs:
             --repo "${{ github.repository }}" \
             --bundle-from-oci
 
+      - name: Inspect verified provenance identity
+        shell: bash
+        run: |
+          gh attestation verify \
+            "oci://${{ needs.build-candidate.outputs.image }}@${{ needs.build-candidate.outputs.digest }}" \
+            --repo "${{ github.repository }}" \
+            --bundle-from-oci \
+            --format json > verification.json
+
+          jq '.[] | {
+            certificate: .verificationResult.signature.certificate,
+            subject: .verificationResult.statement.subject,
+            predicateType: .verificationResult.statement.predicateType,
+            predicate: .verificationResult.statement.predicate
+          }' verification.json
+
       - name: Verification gate passed
         shell: bash
         run: |
