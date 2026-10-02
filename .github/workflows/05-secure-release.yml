@@ -396,3 +396,157 @@ jobs:
           echo "Digest     : ${{ needs.build-candidate.outputs.digest }}"
           echo "Deployment is now permitted."
           echo "========================================="
+
+  # =========================================================
+  # Stage 7 - Deploy verified digest to AKS
+  # =========================================================
+  deploy-verified-release:
+    name: 7 - Deploy Verified Digest to AKS
+    runs-on: ubuntu-latest
+
+    needs:
+      - build-candidate
+      - verify-provenance
+
+    environment:
+      name: production
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Login to Azure
+        uses: azure/login@v3
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Get AKS credentials
+        run: |
+          az aks get-credentials \
+            --resource-group ${{ vars.AKS_RESOURCE_GROUP }} \
+            --name ${{ vars.AKS_CLUSTER_NAME }} \
+            --overwrite-existing
+
+      - name: Show verified deployment identity
+        shell: bash
+        run: |
+          echo "========================================="
+          echo "VERIFIED RELEASE DEPLOYMENT"
+          echo "========================================="
+          echo "Repository : ${{ github.repository }}"
+          echo "Commit     : ${{ github.sha }}"
+          echo "Image      : ${{ needs.build-candidate.outputs.image }}"
+          echo "Digest     : ${{ needs.build-candidate.outputs.digest }}"
+          echo "Target     : AKS / production"
+          echo "========================================="
+
+      - name: Create production namespace
+        run: |
+          kubectl create namespace production \
+            --dry-run=client \
+            -o yaml | kubectl apply -f -
+
+      - name: Create PostgreSQL secret
+        run: |
+          kubectl create secret generic postgres-secret \
+            --namespace production \
+            --from-literal=POSTGRES_USER="${{ secrets.POSTGRES_USER }}" \
+            --from-literal=POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}" \
+            --dry-run=client \
+            -o yaml | kubectl apply -f -
+
+      - name: Create application secret
+        run: |
+          kubectl create secret generic application-secret \
+            --namespace production \
+            --from-literal=POSTGRES_USER="${{ secrets.POSTGRES_USER }}" \
+            --from-literal=POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}" \
+            --from-literal=JWT_SECRET_KEY="${{ secrets.JWT_SECRET_KEY }}" \
+            --from-literal=DEFAULT_ADMIN_USERNAME="${{ secrets.DEFAULT_ADMIN_USERNAME }}" \
+            --from-literal=DEFAULT_ADMIN_EMAIL="${{ secrets.DEFAULT_ADMIN_EMAIL }}" \
+            --from-literal=DEFAULT_ADMIN_PASSWORD="${{ secrets.DEFAULT_ADMIN_PASSWORD }}" \
+            --from-literal=AZURE_STORAGE_CONNECTION_STRING="${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" \
+            --dry-run=client \
+            -o yaml | kubectl apply -f -
+
+      - name: Apply production Kubernetes manifests
+        run: |
+          kubectl apply \
+            -f kubernetes/production/
+
+      - name: Deploy verified user-service digest
+        shell: bash
+        run: |
+          VERIFIED_IMAGE="${{ needs.build-candidate.outputs.image }}@${{ needs.build-candidate.outputs.digest }}"
+
+          echo "Deploying:"
+          echo "$VERIFIED_IMAGE"
+
+          kubectl set image deployment/user-service \
+            user-service="$VERIFIED_IMAGE" \
+            -n production
+
+      - name: Wait for verified user-service rollout
+        run: |
+          kubectl rollout status deployment/user-service \
+            -n production \
+            --timeout=300s
+
+      - name: Verify deployment specification
+        shell: bash
+        run: |
+          EXPECTED="${{ needs.build-candidate.outputs.image }}@${{ needs.build-candidate.outputs.digest }}"
+
+          ACTUAL="$(kubectl get deployment user-service \
+            -n production \
+            -o jsonpath='{.spec.template.spec.containers[0].image}')"
+
+          echo "Expected: $EXPECTED"
+          echo "Actual:   $ACTUAL"
+
+          if [ "$EXPECTED" != "$ACTUAL" ]; then
+            echo "ERROR: Deployment does not reference the verified digest."
+            exit 1
+          fi
+
+          echo "Deployment specification uses the verified immutable digest."
+
+      - name: Prove running pod uses verified digest
+        shell: bash
+        run: |
+          EXPECTED_DIGEST="${{ needs.build-candidate.outputs.digest }}"
+
+          POD="$(kubectl get pods \
+            -n production \
+            -l app=user-service \
+            -o jsonpath='{.items[0].metadata.name}')"
+
+          IMAGE="$(kubectl get pod "$POD" \
+            -n production \
+            -o jsonpath='{.spec.containers[0].image}')"
+
+          IMAGE_ID="$(kubectl get pod "$POD" \
+            -n production \
+            -o jsonpath='{.status.containerStatuses[0].imageID}')"
+
+          echo "========================================="
+          echo "RUNNING RELEASE PROOF"
+          echo "========================================="
+          echo "Pod       : $POD"
+          echo "Image     : $IMAGE"
+          echo "Image ID  : $IMAGE_ID"
+          echo "Expected  : $EXPECTED_DIGEST"
+          echo "========================================="
+
+          if [[ "$IMAGE_ID" != *"$EXPECTED_DIGEST"* ]]; then
+            echo "ERROR: Running container digest does not match verified digest."
+            exit 1
+          fi
+
+          echo "SUCCESS: AKS is running the exact verified image digest."
+
+      - name: Show production resources
+        run: |
+          kubectl get deployment user-service -n production
+          kubectl get pods -n production -l app=user-service -o wide
+          kubectl get services -n production
